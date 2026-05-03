@@ -3,7 +3,7 @@ import Link from "next/link"
 
 import { Layout } from "components/layout"
 
-const legalFields = [
+const legalFields: { label: string; value: string; href?: string }[] = [
   { label: "Legal name", value: "Cattabiani IT Solutions OÜ" },
   {
     label: "Registered address",
