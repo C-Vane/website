@@ -18,8 +18,8 @@ export default async function handler(
   }
 
   try {
-    await resend.emails.send({
-      from: "Cattabiani IT Solutions <onboarding@resend.dev>",
+    const { data, error } = await resend.emails.send({
+      from: "Cattabiani IT Solutions <noreply@cattabiani.eu>",
       to: "vanessa@cattabiani.eu",
       replyTo: email,
       subject: subject
@@ -53,7 +53,13 @@ export default async function handler(
       `,
     })
 
-    return res.status(200).json({ success: true })
+    if (error) {
+      console.error("Resend API error:", error)
+      return res.status(500).json({ error: error.message })
+    }
+
+    console.log("Resend success, email id:", data?.id)
+    return res.status(200).json({ success: true, id: data?.id })
   } catch (error) {
     console.error("Resend error:", error)
     return res.status(500).json({ error: "Failed to send email" })
