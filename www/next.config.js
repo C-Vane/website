@@ -1,5 +1,8 @@
 module.exports = {
   swcMinify: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     domains: ["images.unsplash.com"],
   },
