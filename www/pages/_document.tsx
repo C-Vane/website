@@ -6,6 +6,7 @@ export default class extends Document {
       <Html lang="en" className="font-sans antialiased">
         <Head>
           <meta charSet="utf-8" />
+          <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
           <link rel="icon" type="image/png" href="/images/logo.png" />
           <link rel="apple-touch-icon" href="/images/logo.png" />
         </Head>

@@ -66,10 +66,25 @@ export type NavLink = {
 
 export type NavLinks = NavLink[]
 
+export interface SiteOrganization {
+  legalName: string
+  streetAddress: string
+  addressLocality: string
+  addressRegion: string
+  postalCode: string
+  /** ISO 3166-1 alpha-2 country code */
+  addressCountry: string
+  registrationNumber: string
+  vatId: string
+}
+
 export interface SiteConfig {
   name: string
   description?: string
   copyright?: string
+  /** Path under public/ used for Open Graph and Twitter cards (minimum 1200×630 recommended). */
+  openGraphImagePath: string
+  organization: SiteOrganization
   links: NavLinks
   social: {
     github?: string

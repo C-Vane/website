@@ -3,11 +3,17 @@ import { DefaultSeo } from "next-seo"
 import { Analytics } from "@vercel/analytics/react"
 
 import { site } from "config/site"
+import { getBaseUrl } from "lib/site-url"
 
 import "../styles/global.css"
 import "../styles/mdx.css"
 
 export default function App({ Component, pageProps }) {
+  const baseUrl = getBaseUrl()
+  const defaultOgImage = baseUrl
+    ? `${baseUrl}${site.openGraphImagePath}`
+    : undefined
+
   return (
     <>
       <Script
@@ -24,19 +30,42 @@ export default function App({ Component, pageProps }) {
         `}
       </Script>
       <DefaultSeo
+        defaultTitle={site.name}
+        description={site.description}
         openGraph={{
           title: site.name,
           description: site.description,
           type: "website",
-          url: process.env.NEXT_PUBLIC_BASE_URL,
-          images: [
-            {
-              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`,
-              width: 800,
-              height: 600,
-            },
-          ],
+          ...(baseUrl ? { url: baseUrl } : {}),
+          site_name: site.name,
+          locale: "en_US",
+          ...(defaultOgImage
+            ? {
+                images: [
+                  {
+                    url: defaultOgImage,
+                    width: 512,
+                    height: 512,
+                    alt: site.name,
+                  },
+                ],
+              }
+            : {}),
         }}
+        twitter={{
+          cardType: "summary_large_image",
+          ...(site.social.twitter ? { site: site.social.twitter } : {}),
+        }}
+        additionalMetaTags={[
+          {
+            name: "theme-color",
+            content: "#111118",
+          },
+          {
+            name: "apple-mobile-web-app-title",
+            content: site.name,
+          },
+        ]}
       />
       <Component {...pageProps} />
       <Analytics />

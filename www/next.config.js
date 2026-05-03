@@ -14,4 +14,10 @@ module.exports = {
       { source: "/blog/:path*", destination: "/", permanent: true },
     ]
   },
+  async rewrites() {
+    return [
+      { source: "/robots.txt", destination: "/api/seo-robots" },
+      { source: "/sitemap.xml", destination: "/api/seo-sitemap" },
+    ]
+  },
 }

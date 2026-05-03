@@ -6,6 +6,9 @@ import classNames from "classnames"
 import { NextSeo } from "next-seo"
 
 import { site } from "config/site"
+import { JsonLd } from "components/json-ld"
+import { buildOrganizationAndWebsiteGraph } from "lib/structured-data"
+import { getBaseUrl } from "lib/site-url"
 
 interface LayoutProps {
   title: string
@@ -13,27 +16,54 @@ interface LayoutProps {
   children?: React.ReactNode
 }
 
-export function Layout({ title = "", description = "", children }: LayoutProps) {
+export function Layout({
+  title = "",
+  description = "",
+  children,
+}: LayoutProps) {
   const [showMenu, setShowMenu] = React.useState<boolean>(false)
-  const { asPath: path, pathname } = useRouter()
+  const { pathname } = useRouter()
+  const baseUrl = getBaseUrl()
+  const canonicalUrl = baseUrl ? `${baseUrl}${pathname}` : undefined
+  const pageDescription = description || site.description
+  const openGraphTitle =
+    pathname === "/" ? site.name : `${title}  -  ${site.name}`
+  const openGraphPageUrl = baseUrl ? `${baseUrl}${pathname}` : undefined
+  const openGraphImageUrl = baseUrl
+    ? `${baseUrl}${site.openGraphImagePath}`
+    : undefined
+  const structuredDataGraph = buildOrganizationAndWebsiteGraph()
 
   return (
     <>
+      {structuredDataGraph ? <JsonLd data={structuredDataGraph} /> : null}
       <NextSeo
-        title={path === "/" ? site.name : `${title}  -  ${site.name}`}
-        description={description || site.description}
-        canonical={`${process.env.NEXT_PUBLIC_BASE_URL}${path}`}
+        title={pathname === "/" ? site.name : `${title}  -  ${site.name}`}
+        description={pageDescription}
+        {...(canonicalUrl ? { canonical: canonicalUrl } : {})}
         openGraph={{
-          title,
-          description: description || site.description,
-          url: `${process.env.NEXT_PUBLIC_BASE_URL}${path}`,
-          images: [
-            {
-              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`,
-              width: 800,
-              height: 600,
-            },
-          ],
+          title: openGraphTitle,
+          description: pageDescription,
+          ...(openGraphPageUrl ? { url: openGraphPageUrl } : {}),
+          site_name: site.name,
+          locale: "en_US",
+          type: "website",
+          ...(openGraphImageUrl
+            ? {
+                images: [
+                  {
+                    url: openGraphImageUrl,
+                    width: 512,
+                    height: 512,
+                    alt: site.name,
+                  },
+                ],
+              }
+            : {}),
+        }}
+        twitter={{
+          cardType: "summary_large_image",
+          ...(site.social.twitter ? { site: site.social.twitter } : {}),
         }}
       />
 
@@ -60,8 +90,18 @@ export function Layout({ title = "", description = "", children }: LayoutProps) 
             className="text-slate-400 hover:text-white transition-colors"
             aria-label="Close menu"
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -118,11 +158,24 @@ export function Layout({ title = "", description = "", children }: LayoutProps) 
                 onClick={() => setShowMenu(!showMenu)}
                 aria-label="Toggle menu"
               >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
-              <Link href="/" className="flex items-center space-x-3 flex-shrink-0">
+              <Link
+                href="/"
+                className="flex items-center space-x-3 flex-shrink-0"
+              >
                 <Image
                   src="/images/logo.png"
                   alt={site.name}
@@ -239,7 +292,10 @@ export function Layout({ title = "", description = "", children }: LayoutProps) 
 
             <div className="mt-8 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-sm text-slate-500">{site.copyright}</p>
-              <Link href="/legal" className="text-sm text-slate-500 hover:text-white transition-colors">
+              <Link
+                href="/legal"
+                className="text-sm text-slate-500 hover:text-white transition-colors"
+              >
                 Legal Notice
               </Link>
             </div>
