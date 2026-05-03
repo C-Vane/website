@@ -37,11 +37,6 @@ export default function App({ Component, pageProps }) {
             },
           ],
         }}
-        twitter={{
-          handle: `@${site.social.twitter}`,
-          site: `@${site.social.twitter}`,
-          cardType: "summary_large_image",
-        }}
       />
       <Component {...pageProps} />
       <Analytics />
