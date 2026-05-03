@@ -3,15 +3,11 @@ import Document, { Html, Main, NextScript, Head } from "next/document"
 export default class extends Document {
   render() {
     return (
-      <Html lang="en" className="font-sans antialiased bg-white">
+      <Html lang="en" className="font-sans antialiased">
         <Head>
           <meta charSet="utf-8" />
-          <link rel="icon" type="image/png" href="/images/favicon.ico" />
-          <link
-            rel="preconnect"
-            href={`https://${process.env.NEXT_PUBLIC_ALGOLIA_APP_ID}-dsn.algolia.net`}
-            crossOrigin="anonymous"
-          />
+          <link rel="icon" type="image/png" href="/images/logo.png" />
+          <link rel="apple-touch-icon" href="/images/logo.png" />
         </Head>
         <body>
           <Main />
