@@ -9,6 +9,21 @@ function websiteId(base: string): string {
   return `${base}/#website`
 }
 
+function localBusinessId(base: string): string {
+  return `${base}/#localbusiness`
+}
+
+function buildPostalAddress(): Record<string, unknown> {
+  const address: Record<string, unknown> = {
+    "@type": "PostalAddress",
+    addressCountry: site.organization.addressCountry,
+  }
+  if (site.organization.addressLocality) {
+    address.addressLocality = site.organization.addressLocality
+  }
+  return address
+}
+
 export function buildOrganizationAndWebsiteGraph(): Record<string, unknown> | null {
   const base = getBaseUrl()
   if (!base) {
@@ -19,9 +34,14 @@ export function buildOrganizationAndWebsiteGraph(): Record<string, unknown> | nu
   if (site.social.github) {
     sameAs.push(site.social.github)
   }
+  if (site.social.linkedin) {
+    sameAs.push(site.social.linkedin)
+  }
   if (site.social.twitter) {
     sameAs.push(site.social.twitter)
   }
+
+  const postalAddress = buildPostalAddress()
 
   const organization: Record<string, unknown> = {
     "@type": "Organization",
@@ -31,10 +51,7 @@ export function buildOrganizationAndWebsiteGraph(): Record<string, unknown> | nu
     url: base,
     logo: `${base}${site.openGraphImagePath}`,
     description: site.description,
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: site.organization.addressCountry,
-    },
+    address: postalAddress,
     vatID: site.organization.vatId,
     identifier: {
       "@type": "PropertyValue",
@@ -47,10 +64,22 @@ export function buildOrganizationAndWebsiteGraph(): Record<string, unknown> | nu
     organization.sameAs = sameAs
   }
 
+  const localBusiness: Record<string, unknown> = {
+    "@type": "LocalBusiness",
+    "@id": localBusinessId(base),
+    name: site.name,
+    description: site.description,
+    url: base,
+    image: `${base}${site.openGraphImagePath}`,
+    address: postalAddress,
+    parentOrganization: { "@id": organizationId(base) },
+  }
+
   return {
     "@context": "https://schema.org",
     "@graph": [
       organization,
+      localBusiness,
       {
         "@type": "WebSite",
         "@id": websiteId(base),

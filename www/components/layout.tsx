@@ -111,8 +111,8 @@ export function Layout({
               href="/"
               onClick={() => setShowMenu(false)}
               className={classNames(
-                "text-base font-medium transition-colors hover:text-primary",
-                pathname === "/" ? "text-primary" : "text-slate-300"
+                "text-base font-medium transition-colors hover:text-foreground",
+                pathname === "/" ? "text-foreground" : "text-slate-300"
               )}
             >
               Home
@@ -127,8 +127,8 @@ export function Layout({
                   href={link.href}
                   onClick={() => setShowMenu(false)}
                   className={classNames(
-                    "text-base font-medium transition-colors hover:text-primary",
-                    isActive ? "text-primary" : "text-slate-300"
+                    "text-base font-medium transition-colors hover:text-foreground",
+                    isActive ? "text-foreground" : "text-slate-300"
                   )}
                   target={link.external ? "_blank" : "_self"}
                   rel={link.external ? "noreferrer" : ""}
@@ -149,7 +149,7 @@ export function Layout({
 
       <div className="flex flex-col min-h-screen">
         {/* Header */}
-        <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border">
+        <header className="sticky top-0 z-30 bg-background/75 backdrop-blur-lg border-b border-border">
           <div className="container flex items-center justify-between px-6 mx-auto h-16 xl:px-8">
             {/* Left: hamburger + logo */}
             <div className="flex items-center space-x-4">
@@ -201,8 +201,8 @@ export function Layout({
                     key={link.href}
                     href={link.href}
                     className={classNames(
-                      "text-sm font-medium transition-colors hover:text-white",
-                      isActive ? "text-white" : "text-slate-400"
+                      "text-sm font-medium transition-colors hover:text-foreground",
+                      isActive ? "text-foreground" : "text-muted"
                     )}
                     target={link.external ? "_blank" : "_self"}
                     rel={link.external ? "noreferrer" : ""}
@@ -217,9 +217,9 @@ export function Layout({
             <div className="hidden lg:flex items-center">
               <Link
                 href="/contact"
-                className="px-4 py-2 text-sm font-semibold text-white bg-primary hover:bg-indigo-500 rounded-lg transition-colors"
+                className="px-4 py-2 text-sm font-semibold text-background bg-primary hover:bg-primary-hover rounded-card transition-colors"
               >
-                Get in touch
+                Book a call
               </Link>
             </div>
           </div>
@@ -278,13 +278,53 @@ export function Layout({
                 </ul>
               </div>
 
-              {/* Contact */}
+              {/* Contact & legal */}
               <div className="space-y-4">
                 <h3 className="text-sm font-semibold text-white uppercase tracking-wider">
                   Contact
                 </h3>
-                <ul className="space-y-2 text-sm text-slate-400">
-                  <li>Reg. No. 16835209</li>
+                <ul className="space-y-2 text-sm text-muted">
+                  <li className="text-foreground/90">{site.organization.legalName}</li>
+                  <li>
+                    {site.organization.addressLocality
+                      ? `${site.organization.addressLocality}, Estonia`
+                      : "Estonia"}
+                  </li>
+                  <li>Reg. No. {site.organization.registrationNumber}</li>
+                  {site.contactEmail ? (
+                    <li>
+                      <a
+                        href={`mailto:${site.contactEmail}`}
+                        className="text-foreground hover:text-muted transition-colors"
+                      >
+                        {site.contactEmail}
+                      </a>
+                    </li>
+                  ) : null}
+                  {site.social.github ? (
+                    <li>
+                      <a
+                        href={site.social.github}
+                        className="text-muted hover:text-foreground transition-colors"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    </li>
+                  ) : null}
+                  {site.social.linkedin ? (
+                    <li>
+                      <a
+                        href={site.social.linkedin}
+                        className="text-muted hover:text-foreground transition-colors"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        LinkedIn
+                      </a>
+                    </li>
+                  ) : null}
                 </ul>
               </div>
             </div>

@@ -3,7 +3,7 @@ import Document, { Html, Main, NextScript, Head } from "next/document"
 export default class extends Document {
   render() {
     return (
-      <Html lang="en" className="font-sans antialiased">
+      <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
           <link rel="dns-prefetch" href="https://www.googletagmanager.com" />

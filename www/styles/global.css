@@ -14,35 +14,50 @@
 }
 
 html {
-  font-family: "Inter", sans-serif;
+  scroll-behavior: smooth;
 }
 
-@supports (font-variation-settings: normal) {
+@media (prefers-reduced-motion: reduce) {
   html {
-    font-family: "Inter var", sans-serif;
+    scroll-behavior: auto;
+  }
+
+  [data-fade-in] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 
 body {
-  background-color: #0a0a0f;
-  color: #f1f5f9;
+  background-color: #0a0a0b;
+  color: #f5f5f7;
 }
 
-@font-face {
-  font-family: "Inter var";
-  font-weight: 100 900;
-  font-display: optional;
-  font-style: normal;
-  font-named-instance: "Regular";
-  src: url("/fonts/Inter-roman.var.woff2?v=3.19") format("woff2");
+.hero-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-@font-face {
-  font-family: "Inter var";
-  font-weight: 100 900;
-  font-display: optional;
-  font-style: italic;
-  font-named-instance: "Italic";
-  src: url("/fonts/Inter-italic.var.woff2?v=3.19") format("woff2");
+
+/* Services hero: monochrome grid and line accents (no photography). */
+.services-hero-pattern {
+  background-color: #0a0a0b;
+  background-image:
+    radial-gradient(ellipse 90% 65% at 75% -10%, rgba(255, 255, 255, 0.08), transparent 52%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    repeating-linear-gradient(
+      -26deg,
+      transparent 0,
+      transparent 52px,
+      rgba(255, 255, 255, 0.028) 52px,
+      rgba(255, 255, 255, 0.028) 53px
+    );
+  background-size: auto, 52px 52px, 52px 52px, auto;
 }
 
 .callout p {
@@ -318,5 +333,5 @@ pre.is-highlighted:hover .token-line {
 }
 
 a code {
-  @apply text-blue-700 !important;
+  @apply text-zinc-900 !important;
 }

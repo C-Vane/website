@@ -70,6 +70,8 @@ export interface SiteOrganization {
   legalName: string
   /** ISO 3166-1 alpha-2 country code */
   addressCountry: string
+  /** City used in JSON-LD (for example LocalBusiness). */
+  addressLocality?: string
   registrationNumber: string
   vatId: string
 }
@@ -81,9 +83,12 @@ export interface SiteConfig {
   /** Path under public/ used for Open Graph and Twitter cards (minimum 1200×630 recommended). */
   openGraphImagePath: string
   organization: SiteOrganization
+  /** Public contact email for footer and mail links. */
+  contactEmail?: string
   links: NavLinks
   social: {
     github?: string
+    linkedin?: string
     twitter?: string
     contact?: string
   }

@@ -1,6 +1,5 @@
 import * as React from "react"
 import Link from "next/link"
-import Image from "next/image"
 
 import { Layout } from "components/layout"
 import { JsonLd } from "components/json-ld"
@@ -202,29 +201,14 @@ export default function ServicesPage() {
       description="Custom software development, staff augmentation, SEO and AEO, design, and Estonia company relocation consulting  -  all under one roof."
     >
       {servicesStructuredData ? <JsonLd data={servicesStructuredData} /> : null}
-      {/* Hero */}
-      <section className="relative h-72 md:h-96 overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1600&q=80"
-          alt="Team working together"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        <div className="absolute inset-0 bg-background/75" />
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 80% at 30% 50%, rgba(29,78,216,0.5), transparent)",
-          }}
-        />
-        <div className="absolute inset-0 flex items-center px-6">
+      {/* Hero: abstract grid and lines (no photography) */}
+      <section className="relative min-h-[18rem] md:min-h-[24rem] overflow-hidden border-b border-border services-hero-pattern hero-noise">
+        <div className="relative flex items-center min-h-[18rem] md:min-h-[24rem] px-6 py-14 md:py-20">
           <div className="container max-w-3xl mx-auto">
-            <h1 className="text-4xl font-black tracking-tight md:text-6xl text-white leading-tight">
+            <h1 className="text-4xl font-black tracking-tight md:text-6xl text-foreground leading-tight">
               Our Services
             </h1>
-            <p className="mt-4 text-lg text-slate-300 max-w-xl leading-relaxed">
+            <p className="mt-4 text-lg text-muted max-w-xl leading-relaxed">
               We cover the full software lifecycle - from the first design
               sketch to a live product, and everyone you need to run it.
             </p>
@@ -233,16 +217,16 @@ export default function ServicesPage() {
       </section>
 
       {/* Service cards */}
-      <section className="px-6 pb-24">
+      <section className="px-6 pt-10 md:pt-14 pb-24">
         <div className="container max-w-5xl mx-auto space-y-8">
           {services.map((service, index) => (
             <div
               key={service.title}
               className="rounded-2xl bg-surface border border-border overflow-hidden"
             >
-              <div className="p-8 md:p-10">
+              <div className="px-8 pb-8 pt-12 md:px-10 md:pb-10 md:pt-14">
                 <div className="flex items-start gap-6">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center text-foreground">
                     {service.icon}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -250,7 +234,7 @@ export default function ServicesPage() {
                       <h2 className="text-xl font-bold text-white">
                         {service.title}
                       </h2>
-                      <span className="text-sm text-primary font-medium sm:before:content-['·'] sm:before:mx-2 sm:before:text-slate-600">
+                      <span className="text-sm text-muted font-medium sm:before:content-['·'] sm:before:mx-2 sm:before:text-slate-600">
                         {service.tagline}
                       </span>
                     </div>
@@ -264,7 +248,7 @@ export default function ServicesPage() {
                           className="flex items-start gap-2 text-sm text-slate-300"
                         >
                           <svg
-                            className="w-4 h-4 text-primary mt-0.5 flex-shrink-0"
+                            className="w-4 h-4 text-foreground mt-0.5 flex-shrink-0"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -292,10 +276,10 @@ export default function ServicesPage() {
       <section className="px-6 pb-24">
         <div className="container max-w-3xl mx-auto text-center">
           <div
-            className="rounded-2xl p-10 md:p-14 border border-primary/30"
+            className="rounded-2xl p-10 md:p-14 border border-white/15"
             style={{
               background:
-                "radial-gradient(ellipse 80% 80% at 50% 50%, rgba(99,102,241,0.12), rgba(17,17,24,0.9))",
+                "radial-gradient(ellipse 80% 80% at 50% 50%, rgba(255,255,255,0.08), rgba(18,18,20,0.95))",
             }}
           >
             <h2 className="text-2xl font-black text-white mb-3">
@@ -306,7 +290,7 @@ export default function ServicesPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-3 font-semibold text-white bg-primary hover:bg-indigo-500 rounded-lg transition-colors"
+              className="inline-block px-8 py-3 font-semibold text-background bg-primary hover:bg-primary-hover rounded-lg transition-colors"
             >
               Talk to us
             </Link>

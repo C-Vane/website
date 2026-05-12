@@ -31,7 +31,7 @@ export function CardHeading({
   return (
     <h3
       className={classNames(
-        "mb-2 text-xl font-bold tracking-tight text-gray-900 group-hover:text-primary",
+        "mb-2 text-xl font-bold tracking-tight text-gray-900 group-hover:text-zinc-700",
         className
       )}
       {...props}

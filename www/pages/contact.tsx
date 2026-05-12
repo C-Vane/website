@@ -1,6 +1,5 @@
 import * as React from "react"
 import Link from "next/link"
-import Image from "next/image"
 
 import { Layout } from "components/layout"
 
@@ -63,22 +62,14 @@ export default function ContactPage() {
       title="Contact"
       description="Get in touch with Cattabiani IT Solutions OÜ  -  we respond within one business day."
     >
-      {/* Hero */}
-      <section className="relative h-64 md:h-80 overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1600&q=80"
-          alt="Tallinn, Estonia"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        <div className="absolute inset-0 bg-background/70" />
-        <div className="absolute inset-0 flex items-center px-6">
+      {/* Hero: same abstract treatment as Services (no photography) */}
+      <section className="relative min-h-[18rem] md:min-h-[24rem] overflow-hidden border-b border-border services-hero-pattern hero-noise">
+        <div className="relative flex items-center min-h-[18rem] md:min-h-[24rem] px-6 py-14 md:py-20">
           <div className="container max-w-3xl mx-auto">
-            <h1 className="text-4xl font-black tracking-tight md:text-6xl text-white leading-tight">
+            <h1 className="text-4xl font-black tracking-tight md:text-6xl text-foreground leading-tight">
               Let's talk
             </h1>
-            <p className="mt-4 text-lg text-slate-300 leading-relaxed">
+            <p className="mt-4 text-lg text-muted max-w-xl leading-relaxed">
               Tell us about your project or your hiring challenge. We respond within
               one business day.
             </p>
@@ -87,17 +78,17 @@ export default function ContactPage() {
       </section>
 
       {/* Content */}
-      <section className="px-6 pb-24">
+      <section className="px-6 pt-10 md:pt-14 pb-24">
         <div className="container max-w-5xl mx-auto">
           <div className="grid md:grid-cols-5 gap-12">
             {/* Contact details */}
             <div className="md:col-span-2 space-y-8">
               <div>
-                <h2 className="text-lg font-bold text-white mb-6">Contact details</h2>
+                <h2 className="text-lg font-bold text-foreground mb-6">Contact details</h2>
                 <ul className="space-y-5">
                   {contactDetails.map((item) => (
                     <li key={item.label} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                      <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-foreground">
                         {item.icon}
                       </div>
                       <div>
@@ -129,7 +120,7 @@ export default function ContactPage() {
                   <br />
                   VAT EE102664616
                 </p>
-                <Link href="/legal" className="text-xs text-primary hover:underline mt-2 inline-block">
+                <Link href="/legal" className="text-xs text-foreground hover:underline mt-2 inline-block">
                   Full legal notice →
                 </Link>
               </div>
@@ -137,12 +128,12 @@ export default function ContactPage() {
 
             {/* Form */}
             <div className="md:col-span-3">
-              <div className="rounded-2xl bg-surface border border-border p-8">
-                <h2 className="text-lg font-bold text-white mb-6">Send us a message</h2>
+              <div className="rounded-2xl bg-surface border border-border px-8 pb-8 pt-10 md:px-10 md:pb-10 md:pt-12">
+                <h2 className="text-lg font-bold text-foreground mb-6">Send us a message</h2>
 
                 {formState === "sent" ? (
                   <div className="text-center py-10 space-y-4">
-                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary mx-auto">
+                    <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-foreground mx-auto">
                       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                       </svg>
@@ -153,7 +144,7 @@ export default function ContactPage() {
                     </p>
                     <button
                       onClick={() => { setFormState("idle"); setFormData({ name: "", email: "", subject: "", message: "" }) }}
-                      className="text-sm text-primary hover:underline"
+                      className="text-sm text-foreground hover:underline"
                     >
                       Send another message
                     </button>
@@ -171,7 +162,7 @@ export default function ContactPage() {
                     </p>
                     <button
                       onClick={() => setFormState("idle")}
-                      className="text-sm text-primary hover:underline"
+                      className="text-sm text-foreground hover:underline"
                     >
                       Try again
                     </button>
@@ -181,7 +172,7 @@ export default function ContactPage() {
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-1.5">
-                          Full name <span className="text-primary">*</span>
+                          Full name <span className="text-foreground">*</span>
                         </label>
                         <input
                           id="name"
@@ -191,12 +182,12 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="Jane Smith"
-                          className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-white placeholder-slate-600 focus:outline-none focus:border-primary transition-colors text-sm"
+                          className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-white placeholder-slate-600 focus:outline-none focus:border-white transition-colors text-sm"
                         />
                       </div>
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1.5">
-                          Email address <span className="text-primary">*</span>
+                          Email address <span className="text-foreground">*</span>
                         </label>
                         <input
                           id="email"
@@ -206,7 +197,7 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="jane@company.com"
-                          className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-white placeholder-slate-600 focus:outline-none focus:border-primary transition-colors text-sm"
+                          className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-white placeholder-slate-600 focus:outline-none focus:border-white transition-colors text-sm"
                         />
                       </div>
                     </div>
@@ -219,7 +210,7 @@ export default function ContactPage() {
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
-                        className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-white focus:outline-none focus:border-primary transition-colors text-sm"
+                        className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-white focus:outline-none focus:border-white transition-colors text-sm"
                       >
                         <option value="">Select a topic…</option>
                         <option value="Custom software development">Custom software development</option>
@@ -233,7 +224,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-1.5">
-                        Message <span className="text-primary">*</span>
+                        Message <span className="text-foreground">*</span>
                       </label>
                       <textarea
                         id="message"
@@ -243,13 +234,13 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="Tell us about your project or challenge…"
-                        className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-white placeholder-slate-600 focus:outline-none focus:border-primary transition-colors text-sm resize-none"
+                        className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-white placeholder-slate-600 focus:outline-none focus:border-white transition-colors text-sm resize-none"
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={formState === "sending"}
-                      className="w-full py-3 px-6 font-semibold text-white bg-primary hover:bg-indigo-500 rounded-lg transition-colors disabled:opacity-60"
+                      className="w-full py-3 px-6 font-semibold text-background bg-primary hover:bg-primary-hover rounded-lg transition-colors disabled:opacity-60"
                     >
                       {formState === "sending" ? "Sending…" : "Send message"}
                     </button>

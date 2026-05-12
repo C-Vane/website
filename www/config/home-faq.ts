@@ -28,4 +28,14 @@ export const homeFaqItems = [
     answer:
       "We typically work with modern stacks such as React, Next.js, Node.js, and Python, and we adapt the stack to your product and team.",
   },
+  {
+    question: "Do you sign NDAs and DPAs?",
+    answer:
+      "Yes. Both a non-disclosure agreement and a data processing agreement are available as standard before any technical conversation.",
+  },
+  {
+    question: "Can you work with our existing team and tools?",
+    answer:
+      "Yes. We adapt to your stack, Git workflow, and project management tool, rather than forcing you to change how you already work.",
+  },
 ] as const

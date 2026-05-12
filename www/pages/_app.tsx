@@ -1,4 +1,5 @@
 import Script from "next/script"
+import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google"
 import { DefaultSeo } from "next-seo"
 import { Analytics } from "@vercel/analytics/react"
 
@@ -8,14 +9,36 @@ import { getBaseUrl } from "lib/site-url"
 import "../styles/global.css"
 import "../styles/mdx.css"
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+})
+
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  variable: "--font-inter-tight",
+  weight: ["500", "600", "700", "800"],
+  display: "swap",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  weight: ["400", "500"],
+  display: "swap",
+})
+
 export default function App({ Component, pageProps }) {
   const baseUrl = getBaseUrl()
   const defaultOgImage = baseUrl
     ? `${baseUrl}${site.openGraphImagePath}`
     : undefined
 
+  const fontRootClass = `${inter.variable} ${interTight.variable} ${jetbrainsMono.variable} font-sans antialiased min-h-screen bg-background text-foreground`
+
   return (
-    <>
+    <div className={fontRootClass}>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=GTM-KZRZTL6"
         strategy="afterInteractive"
@@ -59,7 +82,7 @@ export default function App({ Component, pageProps }) {
         additionalMetaTags={[
           {
             name: "theme-color",
-            content: "#111118",
+            content: "#0A0A0B",
           },
           {
             name: "apple-mobile-web-app-title",
@@ -69,6 +92,6 @@ export default function App({ Component, pageProps }) {
       />
       <Component {...pageProps} />
       <Analytics />
-    </>
+    </div>
   )
 }

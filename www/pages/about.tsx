@@ -3,6 +3,37 @@ import Image from "next/image"
 import Link from "next/link"
 import { Layout } from "components/layout"
 
+const deployableCapabilities = [
+  {
+    title: "Full-stack and mobile engineering",
+    summary: "Web, application programming interfaces, and cross-platform mobile delivery with modern TypeScript stacks.",
+  },
+  {
+    title: "Cloud, delivery automation, and engineering leadership",
+    summary: "Cloud foundations, continuous integration and delivery, containers, and operational rigour for growing teams.",
+  },
+  {
+    title: "Machine learning, biometrics, and backend systems",
+    summary: "Model-backed features, robust services, and data-heavy backends where reliability matters.",
+  },
+  {
+    title: "Modern front-end architecture",
+    summary: "Single-page and progressive web applications, component-driven design, and disciplined state management.",
+  },
+  {
+    title: "Backend scalability and application programming interface design",
+    summary: "Performance-minded services, caching, queues, and clear contracts between services and clients.",
+  },
+  {
+    title: "Cybersecurity analysis",
+    summary: "Structured review, tooling-led testing, and practical hardening aligned with common standards.",
+  },
+  {
+    title: "Project and delivery management",
+    summary: "Agile cadence, risk and stakeholder communication, and predictable reporting across tools you already use.",
+  },
+]
+
 const values = [
   {
     title: "Quality first",
@@ -49,7 +80,7 @@ export default function AboutPage() {
           className="absolute inset-0 -z-10 opacity-30"
           style={{
             background:
-              "radial-gradient(ellipse 80% 60% at 50% -20%, rgba(99,102,241,0.35), transparent)",
+              "radial-gradient(ellipse 80% 60% at 50% -20%, rgba(255,255,255,0.12), transparent)",
           }}
         />
         <div className="container max-w-5xl mx-auto">
@@ -72,7 +103,7 @@ export default function AboutPage() {
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/contact"
-                  className="px-6 py-3 font-semibold text-white bg-primary hover:bg-indigo-500 rounded-lg transition-colors text-center"
+                  className="px-6 py-3 font-semibold text-background bg-primary hover:bg-primary-hover rounded-lg transition-colors text-center"
                 >
                   Get in touch
                 </Link>
@@ -86,7 +117,7 @@ export default function AboutPage() {
             </div>
             <div className="flex justify-center">
               <div className="relative">
-                <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-2xl scale-95 -z-10" />
+                <div className="absolute inset-0 rounded-2xl bg-white/10 blur-2xl scale-95 -z-10" />
                 <Image
                   src="/images/photo.jpeg"
                   alt="Vanessa Cattabiani  -  Founder of Cattabiani IT Solutions"
@@ -112,7 +143,7 @@ export default function AboutPage() {
               { value: "EU", label: "Registered & compliant" },
             ].map((stat) => (
               <div key={stat.label}>
-                <p className="text-3xl font-black text-primary">{stat.value}</p>
+                <p className="text-3xl font-black text-foreground">{stat.value}</p>
                 <p className="text-sm text-slate-400 mt-1">{stat.label}</p>
               </div>
             ))}
@@ -120,18 +151,62 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Tallinn photo break */}
-      <section className="relative h-56 md:h-72 overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1600&q=80"
-          alt="Tallinn, Estonia  -  where Cattabiani IT Solutions is registered"
-          fill
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-background/60" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-white text-lg md:text-xl font-semibold tracking-wide opacity-90">
-            Tallinn, Estonia  -  EU registered &amp; globally active
+      {/* Leadership and deployable capabilities */}
+      <section className="px-6 py-16 md:py-24 border-t border-border bg-surface/50">
+        <div className="container max-w-5xl mx-auto">
+          <p className="text-xs font-semibold uppercase tracking-eyebrow text-muted mb-3">Leadership and capacity</p>
+          <h2 className="text-3xl font-black tracking-tight md:text-4xl text-white max-w-3xl">
+            Who leads engagements, and what we can deploy for you
+          </h2>
+          <p className="mt-4 text-slate-400 max-w-3xl leading-relaxed">
+            You work directly with experienced leads. When your scope needs more hands or a narrow specialty, we bring in
+            vetted engineers and analysts under the same delivery standards, so you are not juggling a long list of
+            unknown vendors.
+          </p>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <div className="rounded-xl bg-surface border border-border p-6 md:p-8">
+              <h3 className="text-lg font-bold text-white mb-2">Vanessa Cattabiani</h3>
+              <p className="text-sm text-slate-300 font-medium mb-3">Technical project management and full-stack development</p>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Owns delivery, architecture trade-offs, and day-to-day engineering quality. You get a technical project
+                manager who still writes production code when that is what moves the product forward.
+              </p>
+            </div>
+            <div className="rounded-xl bg-surface border border-border p-6 md:p-8">
+              <h3 className="text-lg font-bold text-white mb-2">Programme leadership</h3>
+              <p className="text-sm text-slate-300 font-medium mb-3">Product and programme management</p>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                A dedicated programme lead with a prior career in solar cell engineering, now focused on roadmaps,
+                stakeholders, and predictable execution alongside engineering.
+              </p>
+            </div>
+          </div>
+
+          <h3 className="mt-14 text-xl font-bold text-white mb-2">Specialist roles we staff for clients</h3>
+          <p className="text-sm text-slate-400 max-w-3xl mb-8 leading-relaxed">
+            Examples of profiles we match to your stack and phase. Availability and composition depend on scope and
+            timeline; we confirm resourcing before we commit.
+          </p>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {deployableCapabilities.map((item) => (
+              <li
+                key={item.title}
+                className="rounded-xl border border-border bg-background/60 p-5 flex flex-col"
+              >
+                <span className="font-semibold text-white text-sm leading-snug">{item.title}</span>
+                <span className="mt-2 text-xs text-slate-400 leading-relaxed">{item.summary}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Tallinn band: abstract tech background (matches Services hero) */}
+      <section className="relative min-h-[14rem] md:min-h-[18rem] overflow-hidden border-y border-border services-hero-pattern hero-noise">
+        <div className="relative flex items-center justify-center min-h-[14rem] md:min-h-[18rem] px-6 py-10 md:py-12">
+          <p className="text-center text-lg md:text-xl font-semibold text-foreground tracking-wide max-w-2xl">
+            Tallinn, Estonia - EU registered &amp; globally active
           </p>
         </div>
       </section>
@@ -153,7 +228,7 @@ export default function AboutPage() {
                 key={value.title}
                 className="p-6 rounded-xl bg-surface border border-border"
               >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-foreground mb-4">
                   {value.icon}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">{value.title}</h3>
@@ -178,7 +253,7 @@ export default function AboutPage() {
                 />
               </div>
               <div className="md:col-span-3 p-8 md:p-10 flex flex-col justify-center">
-                <svg className="w-8 h-8 text-primary mb-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-8 h-8 text-foreground mb-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179Zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179Z" />
                 </svg>
                 <blockquote className="text-lg text-white font-medium leading-relaxed mb-6">
@@ -188,7 +263,7 @@ export default function AboutPage() {
                 </blockquote>
                 <div>
                   <p className="font-semibold text-white">Vanessa Cattabiani</p>
-                  <p className="text-sm text-primary">Founder &amp; CEO, Cattabiani IT Solutions OÜ</p>
+                  <p className="text-sm text-muted">Founder &amp; CEO, Cattabiani IT Solutions OÜ</p>
                 </div>
               </div>
             </div>
@@ -208,7 +283,7 @@ export default function AboutPage() {
             </div>
             <Link
               href="/legal"
-              className="flex-shrink-0 text-sm font-medium text-primary hover:underline"
+              className="flex-shrink-0 text-sm font-medium text-foreground hover:underline"
             >
               View full legal notice →
             </Link>

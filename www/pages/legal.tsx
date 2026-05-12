@@ -21,7 +21,7 @@ export default function LegalPage() {
           className="absolute inset-0 -z-10 opacity-20"
           style={{
             background:
-              "radial-gradient(ellipse 60% 50% at 50% -10%, rgba(99,102,241,0.35), transparent)",
+              "radial-gradient(ellipse 60% 50% at 50% -10%, rgba(255,255,255,0.12), transparent)",
           }}
         />
         <div className="container max-w-3xl mx-auto">
@@ -47,7 +47,7 @@ export default function LegalPage() {
                   <dt className="text-sm font-medium text-slate-400">{field.label}</dt>
                   <dd className="text-sm text-white">
                     {field.href ? (
-                      <a href={field.href} className="hover:text-primary transition-colors">
+                      <a href={field.href} className="hover:text-foreground transition-colors">
                         {field.value}
                       </a>
                     ) : (
@@ -109,7 +109,7 @@ export default function LegalPage() {
           </div>
 
           <div className="text-center pt-4">
-            <Link href="/" className="text-sm text-primary hover:underline">
+            <Link href="/" className="text-sm text-foreground hover:underline">
               ← Back to home
             </Link>
           </div>

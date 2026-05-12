@@ -1,48 +1,50 @@
 import * as React from "react"
 import Link from "next/link"
-import Image from "next/image"
 
 import { site } from "config/site"
 import { homeFaqItems } from "config/home-faq"
 import { Layout } from "components/layout"
 import { JsonLd } from "components/json-ld"
+import { FadeIn } from "components/fade-in"
 import { buildFaqPageSchema } from "lib/structured-data"
+
+const trustLabels = ["B2B SaaS", "HR-tech", "EU scale-ups", "Founder-led teams"]
+
+const problemPains = [
+  {
+    title: "Generalist agencies.",
+    body: "They sell hours, not outcomes. You get juniors, handoffs, and a feature list nobody asked for.",
+  },
+  {
+    title: "Vibe-coded MVPs.",
+    body: "Artificial intelligence-generated codebases that demo well and collapse on day thirty-one. You inherit the debt.",
+  },
+  {
+    title: "Vendor sprawl.",
+    body: "One agency for code, one for design, one for search engine optimisation, one for operations. Nothing connects. You become the project manager.",
+  },
+  {
+    title: "No product thinking.",
+    body: "Engineers without product context build what is specced, not what is needed. You ship and nobody uses it.",
+  },
+]
 
 const services = [
   {
     title: "Custom Software Development",
     description:
-      "Bespoke web and mobile applications built to your exact requirements  -  from MVPs to full-scale platforms.",
+      "Web and mobile, minimum viable product to platform. Modern stacks, clean handover, no lock-in.",
     icon: (
-      <svg
-        className="w-7 h-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"
-        />
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
       </svg>
     ),
   },
   {
     title: "Staff Augmentation",
-    description:
-      "Skilled developers embedded in your team while you search for permanent hires  -  no gap in delivery.",
+    description: "Senior engineers in your team within days. Your process, our delivery.",
     icon: (
-      <svg
-        className="w-7 h-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -54,37 +56,18 @@ const services = [
   {
     title: "SEO & AEO",
     description:
-      "Technical SEO audits, answer engine optimisation, and performance improvements that drive real visibility and traffic.",
+      "Get found by humans and artificial intelligence. Technical search engine optimisation, answer engine optimisation, real traffic.",
     icon: (
-      <svg
-        className="w-7 h-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-        />
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
       </svg>
     ),
   },
   {
     title: "Design",
-    description:
-      "UX/UI design, branding, and interactive prototypes  -  built for the users who actually use your product.",
+    description: "User experience, user interface, prototypes shaped by user research, not designer taste.",
     icon: (
-      <svg
-        className="w-7 h-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -94,44 +77,24 @@ const services = [
     ),
   },
   {
-    title: "Automation & AI Integration",
-    description:
-      "Streamline your operations with intelligent automation  -  eliminating manual work, connecting your tools, and embedding AI where it creates the most value.",
+    title: "Automation & AI",
+    description: "We map the manual work, automate it, and embed artificial intelligence where it pays back.",
     icon: (
-      <svg
-        className="w-7 h-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
           d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"
         />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
       </svg>
     ),
   },
   {
     title: "Estonia Relocation & e-Residency",
-    description:
-      "End-to-end consulting for moving your company to Estonia  -  from e-Residency and e-business setup to full relocation anywhere in Europe.",
+    description: "Set up a European Union company from anywhere. End to end.",
     icon: (
-      <svg
-        className="w-7 h-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -142,71 +105,59 @@ const services = [
   },
 ]
 
-const whyUs = [
+const processSteps = [
   {
-    title: "Fast Delivery",
-    description:
-      "We move quickly without cutting corners. Lean processes and experienced engineers mean you ship sooner.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
-        />
-      </svg>
-    ),
+    title: "Map",
+    phase: "week 1",
+    body: "We audit your problem, stack, and goals. You get a written plan, not a slide deck.",
   },
   {
-    title: "Flexible Engagement",
-    description:
-      "Fixed-price projects, time-and-materials, or staff augmentation  -  we adapt to what works for you.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
-        />
-      </svg>
-    ),
+    title: "Build",
+    phase: "weeks 2–N",
+    body: "Senior team, weekly demos, shippable increments. You see progress every Friday.",
   },
   {
-    title: "End-to-end Ownership",
-    description:
-      "From discovery to deployment and beyond  -  we own every stage so nothing falls through the cracks.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
-        />
-      </svg>
-    ),
+    title: "Ship & grow",
+    phase: "ongoing",
+    body: "We deploy, document, hand over, and stay on retainer if you want growth, search engine optimisation, or artificial intelligence extensions.",
   },
 ]
+
+const proofStats = [
+  "1000+ payments processed at 95%+ success rate on automated billing infrastructure.",
+  "500+ active users on multi-tenant human-resources technology software as a service built and scaled.",
+  "60+ senior engineers interviewed; structured three-week onboarding designed and run.",
+  "4+ years shipping production software across software as a service, blockchain gaming, and human-resources technology.",
+]
+
+const engagementModels = [
+  {
+    title: "Fixed-scope project",
+    body: "Best for minimum viable products and defined builds. Clear scope, clear price.",
+    recommended: false,
+  },
+  {
+    title: "Time & materials",
+    body: "Best for evolving products. Weekly visibility, monthly invoices.",
+    recommended: false,
+  },
+  {
+    title: "Embedded engineer",
+    body: "Best when you are hiring. Senior plug-in within seven days.",
+    recommended: true,
+  },
+  {
+    title: "Growth retainer",
+    body: "Best post-launch. Search engine optimisation and answer engine optimisation, artificial intelligence extensions, ongoing iteration.",
+    recommended: false,
+  },
+]
+
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-xs font-semibold uppercase tracking-eyebrow text-muted mb-3">{children}</p>
+  )
+}
 
 export default function IndexPage() {
   const faqStructuredData = buildFaqPageSchema(homeFaqItems)
@@ -214,254 +165,253 @@ export default function IndexPage() {
   return (
     <Layout title={site.name} description={site.description}>
       {faqStructuredData ? <JsonLd data={faqStructuredData} /> : null}
+
       {/* Hero */}
-      <section className="relative px-6 pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
+      <section className="relative px-6 pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden hero-noise">
         <div
-          className="absolute inset-0 -z-10 opacity-25"
+          className="absolute inset-0 -z-10 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 80% 60% at 50% -20%, rgba(29,78,216,0.5), transparent)",
+              "radial-gradient(ellipse 70% 55% at 50% -15%, rgba(255, 255, 255, 0.12), transparent 55%)",
           }}
         />
-        <div className="container max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center space-x-2 mb-6 px-4 py-1.5 rounded-full bg-surface border border-border text-sm text-slate-400">
-                <span className="w-2 h-2 rounded-full bg-primary inline-block" />
-                <span>
-                  Software house · Estonia-registered · Operating globally
-                </span>
-              </div>
-              <h1 className="text-4xl font-black tracking-tight md:text-5xl lg:text-6xl text-white leading-tight">
-                Software that works.
-                <br />
-                <span className="text-primary">People you can rely on.</span>
-              </h1>
-              <p className="mt-6 text-lg text-slate-400 max-w-lg leading-relaxed">
-                We build software on demand, place skilled engineers in your
-                team, and optimise your digital presence - all under one roof.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-10">
-                <Link
-                  href="/contact"
-                  className="px-8 py-3 font-semibold text-center text-white bg-primary hover:bg-blue-700 rounded-lg transition-colors"
-                >
-                  Get in touch
-                </Link>
-                <Link
-                  href="/services"
-                  className="px-8 py-3 font-semibold text-center text-slate-300 bg-surface hover:bg-surface-2 border border-border rounded-lg transition-colors"
-                >
-                  Our services
-                </Link>
-              </div>
+        <div className="container mx-auto px-0 md:px-5">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-xs font-semibold uppercase tracking-eyebrow text-muted mb-6">
+              Software house · Tallinn · Global
+            </p>
+            <h1 className="font-display font-extrabold tracking-[-0.02em] text-foreground leading-[1.05] text-[clamp(2.5rem,6vw,5.25rem)]">
+              Software that works.
+              <br />
+              <span className="text-white">In an era of bugs.</span>
+            </h1>
+            <p className="mt-8 text-lg md:text-xl text-muted max-w-3xl mx-auto leading-relaxed">
+              Most software ships broken. We do not. We build, staff, and grow products that actually work, from the
+              first line of code to your first paying customer.
+            </p>
+            <p className="mt-4 font-mono text-sm text-muted/80">
+              <span className="text-white/50">$</span> cd ~/your-product
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+              <Link
+                href="/contact"
+                className="px-8 py-3.5 font-semibold text-center text-background bg-primary hover:bg-primary-hover rounded-card transition-colors"
+              >
+                Book a call
+              </Link>
+              <Link
+                href="/#how-we-work"
+                className="px-8 py-3.5 font-semibold text-center text-foreground border border-border bg-surface/50 hover:bg-surface-2 rounded-card transition-colors"
+              >
+                See how we work
+              </Link>
             </div>
-            <div className="relative hidden md:block">
-              <div className="absolute -inset-4 rounded-3xl bg-primary/10 blur-3xl -z-10" />
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-3">
-                  <div className="rounded-2xl overflow-hidden h-48 relative">
-                    <Image
-                      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80"
-                      alt="Team collaborating"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-primary/10" />
-                  </div>
-                  <div className="rounded-2xl overflow-hidden h-36 relative">
-                    <Image
-                      src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80"
-                      alt="Developer coding"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-primary/10" />
-                  </div>
-                </div>
-                <div className="space-y-3 pt-6">
-                  <div className="rounded-2xl overflow-hidden h-36 relative">
-                    <Image
-                      src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=80"
-                      alt="Modern workspace"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-primary/10" />
-                  </div>
-                  <div className="rounded-2xl overflow-hidden h-48 relative">
-                    <Image
-                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
-                      alt="Business strategy"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-primary/10" />
-                  </div>
-                </div>
-              </div>
+            <p className="mt-14 text-sm text-muted">Trusted by founders, scale-ups, and operators across the EU.</p>
+            <div className="mt-6 flex flex-wrap justify-center gap-6 md:gap-10">
+              {trustLabels.map((label) => (
+                <span
+                  key={label}
+                  className="text-xs font-medium uppercase tracking-wider text-muted opacity-50 hover:opacity-100 transition-opacity"
+                >
+                  {label}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services grid */}
-      <section className="px-6 py-16 md:py-24">
-        <div className="container max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-black tracking-tight md:text-4xl lg:text-5xl text-white">
-              What we do
+      {/* The problem */}
+      <section id="the-problem" className="px-6 py-16 md:py-24 border-t border-border bg-surface/40">
+        <div className="container mx-auto">
+          <FadeIn>
+            <Eyebrow>The problem</Eyebrow>
+            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground tracking-tight max-w-2xl">
+              Why most software projects fail.
             </h2>
-            <p className="mt-4 text-lg text-slate-400 max-w-xl mx-auto">
-              From the first line of code to the right hire - we cover the full
-              spectrum.
+            <p className="mt-4 text-muted max-w-2xl leading-relaxed">
+              Before we pitch a stack, we name what usually goes wrong, so you know we have seen it before.
             </p>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {services.map((service) => (
-              <div
-                key={service.title}
-                className="p-6 rounded-xl bg-surface border border-border hover:border-primary/50 transition-colors group"
-              >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary/20 transition-colors">
-                  {service.icon}
+          </FadeIn>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2">
+            {problemPains.map((item) => (
+              <FadeIn key={item.title}>
+                <div className="h-full p-6 rounded-card bg-surface border border-border hover:border-white/25 transition-colors">
+                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{item.body}</p>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What we do */}
+      <section id="what-we-do" className="px-6 py-16 md:py-24">
+        <div className="container mx-auto">
+          <FadeIn>
+            <Eyebrow>What we do</Eyebrow>
+            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground tracking-tight">
+              One team. Full stack. From idea to growth.
+            </h2>
+          </FadeIn>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <FadeIn key={service.title}>
+                <div className="h-full p-6 rounded-card bg-surface border border-border hover:border-white/25 transition-colors group">
+                  <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-foreground mb-4 group-hover:bg-white/[0.14] transition-colors">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{service.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{service.description}</p>
+                </div>
+              </FadeIn>
             ))}
           </div>
           <div className="text-center mt-10">
-            <Link
-              href="/services"
-              className="inline-flex items-center space-x-2 text-primary hover:underline font-medium"
-            >
-              <span>See all services</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                />
-              </svg>
+            <Link href="/services" className="inline-flex items-center gap-2 text-foreground hover:text-muted font-medium transition-colors underline-offset-4 hover:underline">
+              <span>All services</span>
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Photo break */}
-      <section className="relative h-64 md:h-80 overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
-          alt="Modern office"
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-background/70" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-6">
-            <p className="text-xl md:text-3xl font-black text-white max-w-2xl mx-auto leading-snug">
-              &quot;We don&apos;t just deliver code - we deliver outcomes.&quot;
-            </p>
-            <p className="mt-3 text-slate-400 text-sm">
-              Vanessa Cattabiani, Founder
-            </p>
-          </div>
+      {/* How we work */}
+      <section id="how-we-work" className="px-6 py-16 md:py-24 border-t border-border bg-surface-2/50">
+        <div className="container mx-auto">
+          <FadeIn>
+            <Eyebrow>How we work</Eyebrow>
+            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground tracking-tight max-w-3xl">
+              A process built by engineers who got tired of agency processes.
+            </h2>
+          </FadeIn>
+          <ol className="mt-12 grid gap-6 md:grid-cols-3">
+            {processSteps.map((step, index) => (
+              <FadeIn key={step.title}>
+                <li className="relative p-6 rounded-card bg-surface border border-border h-full">
+                  <span className="text-4xl font-display font-black text-white/[0.08] absolute top-4 right-5">
+                    {index + 1}
+                  </span>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">{step.phase}</p>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{step.body}</p>
+                </li>
+              </FadeIn>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* Why us */}
-      <section className="px-6 py-16 md:py-24 bg-surface border-y border-border">
-        <div className="container max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-black tracking-tight md:text-4xl lg:text-5xl text-white">
-              Why work with us
+      {/* Proof */}
+      <section id="proof" className="px-6 py-16 md:py-24">
+        <div className="container mx-auto">
+          <FadeIn>
+            <Eyebrow>Proof</Eyebrow>
+            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground tracking-tight">
+              Real numbers. Real shipped software.
             </h2>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {whyUs.map((item) => (
-              <div key={item.title} className="text-center space-y-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mx-auto">
-                  {item.icon}
+          </FadeIn>
+          <ul className="mt-10 space-y-4 max-w-3xl">
+            {proofStats.map((line) => (
+              <FadeIn key={line}>
+                <li className="flex gap-3 text-muted leading-relaxed">
+                  <span className="text-foreground mt-1.5 flex-shrink-0" aria-hidden="true">
+                    ●
+                  </span>
+                  <span>{line}</span>
+                </li>
+              </FadeIn>
+            ))}
+          </ul>
+          <FadeIn>
+            <figure className="mt-14 p-8 rounded-card bg-surface border-l-4 border-white border-y border-r border-border">
+              <blockquote className="text-lg md:text-xl text-foreground leading-relaxed font-medium">
+                &ldquo;They shipped billing automation without drama. We have held ninety-five percent plus success on
+                payments since go-live.&rdquo;
+              </blockquote>
+              <figcaption className="mt-4 text-sm text-muted">Engineering lead, B2B SaaS (anonymous)</figcaption>
+            </figure>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Engagement */}
+      <section id="engagement" className="px-6 py-16 md:py-24 border-t border-border bg-surface/40">
+        <div className="container mx-auto">
+          <FadeIn>
+            <Eyebrow>Engagement</Eyebrow>
+            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground tracking-tight">
+              Pay for outcomes, not for hours.
+            </h2>
+          </FadeIn>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {engagementModels.map((model) => (
+              <FadeIn key={model.title}>
+                <div
+                  className={`h-full p-6 rounded-card bg-surface border transition-colors ${
+                    model.recommended
+                      ? "border-white shadow-[0_0_0_1px_rgba(255,255,255,0.22)]"
+                      : "border-border hover:border-white/20"
+                  }`}
+                >
+                  {model.recommended ? (
+                    <p className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Recommended</p>
+                  ) : (
+                    <div className="h-[18px] mb-3" aria-hidden="true" />
+                  )}
+                  <h3 className="text-lg font-bold text-foreground mb-2">{model.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{model.body}</p>
                 </div>
-                <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Frequently asked questions (visible copy + FAQPage structured data) */}
-      <section
-        className="px-6 py-16 md:py-24 border-t border-border bg-surface/50"
-        aria-labelledby="faq-heading"
-      >
-        <div className="container max-w-3xl mx-auto">
-          <h2
-            id="faq-heading"
-            className="text-3xl font-black tracking-tight md:text-4xl text-white text-center mb-4"
-          >
-            Frequently asked questions
-          </h2>
-          <p className="text-center text-slate-400 mb-10 max-w-xl mx-auto">
-            Straight answers about how we work, where we are based, and what
-            answer engine optimisation means.
-          </p>
+      {/* FAQ */}
+      <section className="px-6 py-16 md:py-24" aria-labelledby="faq-heading">
+        <div className="container mx-auto max-w-3xl">
+          <FadeIn>
+            <Eyebrow>FAQ</Eyebrow>
+            <h2 id="faq-heading" className="font-display font-bold text-3xl md:text-4xl text-foreground text-center mb-4">
+              Frequently asked questions
+            </h2>
+            <p className="text-center text-muted mb-10 leading-relaxed">
+              Straight answers about how we work, compliance, and tooling.
+            </p>
+          </FadeIn>
           <dl className="space-y-4">
             {homeFaqItems.map((item) => (
-              <div
-                key={item.question}
-                className="rounded-xl border border-border bg-background/80 p-5 md:p-6"
-              >
-                <dt className="text-base font-semibold text-white">
-                  {item.question}
-                </dt>
-                <dd className="mt-3 text-sm text-slate-400 leading-relaxed">
-                  {item.answer}
-                </dd>
-              </div>
+              <FadeIn key={item.question}>
+                <div className="rounded-card border border-border bg-surface p-5 md:p-6">
+                  <dt className="text-base font-semibold text-foreground">{item.question}</dt>
+                  <dd className="mt-3 text-sm text-muted leading-relaxed">{item.answer}</dd>
+                </div>
+              </FadeIn>
             ))}
           </dl>
         </div>
       </section>
 
-      {/* CTA banner */}
+      {/* Final CTA */}
       <section className="px-6 py-20 md:py-28">
-        <div className="container max-w-3xl mx-auto text-center">
-          <div
-            className="rounded-2xl p-10 md:p-16 border border-primary/30 relative overflow-hidden"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 80% at 50% 50%, rgba(99,102,241,0.12), rgba(17,17,24,0.9))",
-            }}
-          >
-            <h2 className="text-3xl font-black tracking-tight md:text-4xl lg:text-5xl text-white mb-4">
-              Ready to build something?
+        <div className="container mx-auto max-w-3xl text-center">
+          <FadeIn>
+            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground tracking-tight">
+              Have a product to ship, or a problem to untangle?
             </h2>
-            <p className="text-lg text-slate-400 mb-8 max-w-lg mx-auto">
-              Tell us about your project and we will get back to you within one
-              business day.
+            <p className="mt-6 text-lg text-muted leading-relaxed max-w-xl mx-auto">
+              Tell us what you are building. A senior engineer replies within one business day. No sales development
+              representative funnel.
             </p>
             <Link
               href="/contact"
-              className="inline-block px-10 py-3 font-semibold text-white bg-primary hover:bg-indigo-500 rounded-lg transition-colors"
+              className="inline-block mt-10 px-10 py-3.5 font-semibold text-background bg-primary hover:bg-primary-hover rounded-card transition-colors"
             >
-              Start the conversation
+              Start a project →
             </Link>
-          </div>
+          </FadeIn>
         </div>
       </section>
     </Layout>

@@ -28,7 +28,7 @@ export default async function handler(
       text: `New contact form submission\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject || "Not specified"}\n\nMessage:\n${message}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b;">
-          <h2 style="color: #1d4ed8; margin-bottom: 24px;">New contact form submission</h2>
+          <h2 style="color: #0a0a0b; margin-bottom: 24px;">New contact form submission</h2>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
             <tr>
               <td style="padding: 8px 0; font-weight: 600; width: 100px; color: #64748b;">Name</td>
@@ -36,7 +36,7 @@ export default async function handler(
             </tr>
             <tr>
               <td style="padding: 8px 0; font-weight: 600; color: #64748b;">Email</td>
-              <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #1d4ed8;">${email}</a></td>
+              <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #0a0a0b; text-decoration: underline;">${email}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; font-weight: 600; color: #64748b;">Subject</td>

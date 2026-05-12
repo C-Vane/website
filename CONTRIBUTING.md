@@ -123,7 +123,7 @@ Dropped support for Next.js 11 and React 16.
 Fixes #371
 ```
 
-### Commit first line — `<type>(<scope>)!: <subject>`
+### Commit first line - `<type>(<scope>)!: <subject>`
 
 The first line includes a brief description of the change in the `<subject>` after the semicolon. The type and scope should always be lowercase as shown below.
 
