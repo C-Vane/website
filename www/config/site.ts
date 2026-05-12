@@ -8,10 +8,6 @@ export const site: SiteConfig = {
   openGraphImagePath: "/images/logo.png",
   organization: {
     legalName: "Cattabiani IT Solutions OÜ",
-    streetAddress: "Randla tn 12-28",
-    addressLocality: "Tallinn",
-    addressRegion: "Harjumaa",
-    postalCode: "10315",
     addressCountry: "EE",
     registrationNumber: "16835209",
     vatId: "EE102664616",

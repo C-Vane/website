@@ -284,7 +284,6 @@ export function Layout({
                   Contact
                 </h3>
                 <ul className="space-y-2 text-sm text-slate-400">
-                  <li>Randla tn 12-28, Tallinn, Estonia</li>
                   <li>Reg. No. 16835209</li>
                 </ul>
               </div>

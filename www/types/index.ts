@@ -68,10 +68,6 @@ export type NavLinks = NavLink[]
 
 export interface SiteOrganization {
   legalName: string
-  streetAddress: string
-  addressLocality: string
-  addressRegion: string
-  postalCode: string
   /** ISO 3166-1 alpha-2 country code */
   addressCountry: string
   registrationNumber: string

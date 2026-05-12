@@ -11,7 +11,7 @@ export const homeFaqItems = [
   {
     question: "Where is the company based?",
     answer:
-      "The legal entity is Cattabiani IT Solutions OÜ, registered in Tallinn, Estonia, at Randla tn 12-28. The team works with clients globally.",
+      "The legal entity is Cattabiani IT Solutions OÜ, registered in Estonia. The team works with clients globally.",
   },
   {
     question: "What is answer engine optimisation?",

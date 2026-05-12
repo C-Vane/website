@@ -5,10 +5,6 @@ import { Layout } from "components/layout"
 
 const legalFields: { label: string; value: string; href?: string }[] = [
   { label: "Legal name", value: "Cattabiani IT Solutions OÜ" },
-  {
-    label: "Registered address",
-    value: "Randla tn 12-28 Harjumaa, Tallinn Põhja-Tallinna linnaosa 10315, Estonia",
-  },
   { label: "Registration number", value: "16835209" },
   { label: "Date of registration", value: "06/10/2023" },
   { label: "VAT identification number", value: "EE102664616" },

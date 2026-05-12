@@ -33,10 +33,6 @@ export function buildOrganizationAndWebsiteGraph(): Record<string, unknown> | nu
     description: site.description,
     address: {
       "@type": "PostalAddress",
-      streetAddress: site.organization.streetAddress,
-      addressLocality: site.organization.addressLocality,
-      addressRegion: site.organization.addressRegion,
-      postalCode: site.organization.postalCode,
       addressCountry: site.organization.addressCountry,
     },
     vatID: site.organization.vatId,
